@@ -9,6 +9,7 @@ var users = require('./routes/users');
 var helloRouter = require('./routes/hello');
 var notesRouter = require('./routes/notes'); 
 var catRouter = require('./routes/cat');
+var catRouter = require('./routes/dog');
 
 
 var app = express();
@@ -27,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/cat',catRouter);
+app.use('/dog',dogRouter);
 
 app.use('/', index);
 app.use('/users', users);
