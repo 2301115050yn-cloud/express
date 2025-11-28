@@ -1,21 +1,24 @@
-var express = require('express');
-var router = express.Router();
-
-// 接続情報を設定
+const express = require('express');
+const router = express.Router();
 const { MongoClient } = require("mongodb");
-const uri = "mongodb+srv://mongodb+srv://2301115050yn_db_user:GEpg1ZUXBE1eP4hT@cluster0.folylas.mongodb.net/?appName=Cluster0@test.zlsie9f.mongodb.net/?retryWrites=true&w=majority&appName=test";
+
+const uri = "*";
+
 const client = new MongoClient(uri);
 
 router.get('/', async (req, res) => {
-// データベース、コレクションを指定
-const database = client.db('notes');
-const notes = database.collection('notes');
+  try {
+    const database = client.db('notes');
+    const notes = database.collection('notes');
 
-// idが１のドキュメントを取得
-const query = { id: 2 };
-const note = await notes.findOne(query);
+    const query = { id: 2 };
+    const note = await notes.findOne(query);
 
-res.json(note);
-})
+    res.json(note);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error");
+  }
+});
 
 module.exports = router;
